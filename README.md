@@ -30,15 +30,15 @@ $ python setup.py install
 
 Assign a url or .txt file which one url one line
 
-$ photo-get  url
+$ photo-dl  url
 
-$ photo-get xxx.txt
+$ photo-dl xxx.txt
 
 #### Examples
 
-$ photo-get  https://www.meituri.com/t/1820/
+$ photo-dl  https://www.meituri.com/t/1820/
 
-$ photo-get urls.txt
+$ photo-dl urls.txt
 
 
 
