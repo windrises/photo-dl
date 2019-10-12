@@ -8,7 +8,7 @@ photo-dl is a command-line downloader which helps to crawl photo albums from [Su
 
 #### Dependencies
 
-- python >= 3.4
+- python >= 3.5
 - requests >= 2.12.0
 - lxml >= 3.7.0
 
@@ -28,7 +28,7 @@ $ python setup.py install
 
 ## Usage
 
-assign a url or .txt file which one url one line
+Assign a url or .txt file which one url one line
 
 $ photo-get  url
 
