@@ -4,6 +4,7 @@ import getopt
 import traceback
 from photo_dl.request import request
 from photo_dl.save import save
+from photo_dl.log import log
 from photo_dl import parsers
 
 
@@ -29,20 +30,22 @@ def main():
 
     arg = args[0]
     albums = []
-    try:
-        if arg.find('.txt') != -1:
-            with open(arg, 'r') as f:
-                for line in f.readlines():
-                    line = line.strip()
-                    parser = parsers.url2parser(line)()
-                    albums.extend(parser.url2albums(line))
-        else:
-            parser = parsers.url2parser(arg)()
-            albums.extend(parser.url2albums(arg))
-    except:
-        print('parse error')
-        print(traceback.print_exc())
-        return
+    print('parsing...')
+    input_urls = []
+    if arg.find('.txt') != -1:
+        with open(arg, 'r') as f:
+            input_urls.extend(f.readlines())
+    for input_url in input_urls:
+        input_url = input_url.strip()
+        print(input_url, end='')
+        try:
+            parser = parsers.url2parser(input_url)()
+            albums.extend(parser.url2albums(input_url))
+            print(' succeed')
+        except:
+            print(' parse error! please see the log file for more information')
+            log(traceback.print_exc())
+            continue
 
     tot_num = 0
     tot_success = 0
@@ -77,7 +80,7 @@ def main():
     print('*' * 50)
     print('total success: %d, total error: %d' % (tot_success, int(tot_num) - tot_success))
     if tot_success < tot_num:
-        print('you can try again')
+        print('\nyou can try again')
 
 
 if __name__ == '__main__':
