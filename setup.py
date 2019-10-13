@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="photo-dl",
-    version="0.0.6",
+    version="0.0.8",
     author="windrises",
     author_email="wind_rises@163.com",
     description="A photo album downloader",
@@ -23,7 +23,7 @@ setuptools.setup(
             'photo-dl = photo_dl.__main__:main'
         ],
     },
-    python_requires='>=3.4',
+    python_requires='>=3.5',
     install_requires=[
         "requests>=2.12.0",
         "lxml>=3.7.0"

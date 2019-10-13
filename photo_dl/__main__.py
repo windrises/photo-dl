@@ -8,10 +8,14 @@ from photo_dl import parsers
 
 
 def main():
-    opts, args = getopt.getopt(sys.argv[1:], 'h', ['help'])
     _help = 'assign a url or .txt file which one url one line\n' +\
             '$ photo-get  url\n' +\
             '$ photo-get xxx.txt'
+    try:
+        opts, args = getopt.getopt(sys.argv[1:], 'h', ['help'])
+    except getopt.GetoptError as e:
+        print(e)
+        return
     if not opts and not args:
         print(_help)
         return

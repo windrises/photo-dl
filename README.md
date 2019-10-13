@@ -28,7 +28,7 @@ $ python setup.py install
 
 ## Usage
 
-Assign a url or .txt file which one url one line
+Assign a url or .txt file (one url per line)
 
 $ photo-dl  url
 
