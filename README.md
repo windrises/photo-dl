@@ -44,7 +44,7 @@ $ photo-dl urls.txt
 
 ## Supported sites
 
-Temporarily only supports two website
+Temporarily only supports two sites
 
 | site                     | feature             | example                                                      |
 | :----------------------- | ------------------- | :----------------------------------------------------------- |
