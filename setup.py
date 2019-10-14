@@ -5,13 +5,13 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="photo-dl",
-    version="0.0.8",
+    version="0.0.9",
     author="windrises",
     author_email="wind_rises@163.com",
     description="A photo album downloader",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/windrises/photo-dl",
+    url="https://github.com/windrises/photo-dl.git",
     packages=["photo_dl", "photo_dl.parsers"],
     classifiers=[
         "Programming Language :: Python :: 3",

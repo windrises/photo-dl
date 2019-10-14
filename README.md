@@ -18,7 +18,7 @@ $ pip install --upgrade photo-dl
 
 #### Install from source
 
-$ git clone https://github.com/windrises/photo-dl
+$ git clone https://github.com/windrises/photo-dl.git
 
 $ cd photo-dl
 
@@ -44,9 +44,12 @@ $ photo-dl urls.txt
 
 ## Supported sites
 
-Temporarily only supports one website
+Temporarily only supports two website
 
-| site                     | example                         |
-| :----------------------- | :------------------------------ |
-| https://www.meituri.com/ | https://www.meituri.com/t/1820/ |
-|                          | https://www.meituri.com/a/7893/ |
+| site                     | feature             | example                                                      |
+| :----------------------- | ------------------- | :----------------------------------------------------------- |
+| https://www.meituri.com/ | model               | https://www.meituri.com/t/1820/                              |
+|                          | album               | https://www.meituri.com/a/7893/                              |
+|                          | search              | https://www.meituri.com/search/有村架純                      |
+| https://www.jav.ink/     | tag/search/category | https://www.jav.ink/category/graphis-collection-2002-2018/ [NSFW] |
+|                          | album               | https://www.jav.ink/graphis-collection-2002-2018/yura-kano-『sweet-memories』vol-2/ [NSFW] |

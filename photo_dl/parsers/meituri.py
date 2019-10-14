@@ -1,22 +1,22 @@
 from photo_dl.request import request
-from .__init__ import re
+from photo_dl.parsers.__init__ import re
 
 
 class Meituri:
     def __init__(self):
         self.parser_name = 'meituri'
+        self.domain = 'https://www.meituri.com'
         self.album_flag = {}
 
-    @staticmethod
-    def model2albums(model_url):
-        html = request(model_url)
-        albums = html.xpath('//*[@class="hezi"]//li/a/@href')
-        pages = html.xpath('//*[@id="pages"]/href')
+    def model2albums(self, model_url):
+        model_html = request(model_url)
+        albums = model_html.xpath('//*[@class="hezi"]//li/a/@href')
+        pages = model_html.xpath('//*[@id="pages"]/href')
         if pages:
             pages = list(set(pages))
             for page in pages:
                 if '/s/' in page:
-                    html = request('https://www.meituri.com' + page)
+                    html = request(self.domain + page)
                     albums.extend(html.xpath('//*[@class="hezi"]//li/a/@href'))
         return albums
 
@@ -28,11 +28,12 @@ class Meituri:
         if album_id in self.album_flag:
             return
         self.album_flag[album_id] = 1
-        html = request(album_url)
-        num = html.xpath('//*[contains(text(), "图片数量")]/text()')[0]
+
+        album_html = request(album_url)
+        num = album_html.xpath('//*[contains(text(), "图片数量")]/text()')[0]
         num = num[num.find('： ') + 2: num.find('P')]
 
-        album_name = html.xpath('//title/text()')[0]
+        album_name = album_html.xpath('//title/text()')[0]
         if re.match('.*第.*页.*', album_name):
             album_name = album_name[:album_name.rfind('/') - 1]
 
@@ -45,10 +46,12 @@ class Meituri:
 
     def url2albums(self, url):
         albums_url = []
-        if '/t/' in url:
+        if '/t/' in url or '/search/' in url:
             albums_url.extend(self.model2albums(url))
         elif '/a/' in url:
             albums_url.append(url)
+        else:
+            return [{'error': {'url': url, 'info': 'not supported'}}]
 
         albums = []
         for album_url in albums_url:
