@@ -11,14 +11,14 @@ class Jav_ink:
     def category2albums(category_url):
         category_url = category_url[:category_url.find('/page/')]
         category_html = request(category_url)
-        albums = category_html.xpath('//[@id="infinite-articles"]/li/[@class="post"]/a/@href')
+        albums = category_html.xpath('//*[@id="infinite-articles"]/li[contains(@class, "post")]/a/@href')
         pages = category_html.xpath('//*[@class="pages"]/text()')
         if pages:
             pages = pages[0]
             pages = pages[pages.find('of') + 3:]
             for page in range(int(pages)):
                 html = request('%s/page/%d/' % (category_url, page))
-                albums.extend(html.xpath('//[@id="infinite-articles"]/li/[@class="post"]/a/@href'))
+                albums.extend(html.xpath('//*[@id="infinite-articles"]/li[contains(@class, "post")]/a/@href'))
         return albums
 
     def album2photos(self, album_url):
@@ -32,10 +32,10 @@ class Jav_ink:
             return
         self.album_flag[album_id] = 1
 
-        album_name = album_html.xpath('//*[@class="article-title"]/text()')[0]
+        album_name = album_html.xpath('//*[contains(@class, "article-title")]/text()')[0]
         photos_html = album_html.xpath('//*[@class="gallery-item"]')
         for photo_html in photos_html:
-            photo_url = photo_html.xpath('//a/@href')
+            photo_url = photo_html.xpath('.//a/@href')[0]
             photo_name = photo_url[photo_url.rfind('/') + 1:]
             photos.append({'photo_url': photo_url, 'photo_name': photo_name})
         album = {'parser_name': self.parser_name, 'album_name': album_name, 'photos': photos}
@@ -43,7 +43,7 @@ class Jav_ink:
 
     def url2albums(self, url):
         albums_url = []
-        if '/category/' in url:
+        if '/category/' in url or '/?s=' in url:
             albums_url.extend(self.category2albums(url))
         else:
             albums_url.append(url)

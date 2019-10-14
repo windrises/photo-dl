@@ -1,5 +1,5 @@
 from photo_dl.request import request
-from .__init__ import re
+from photo_dl.parsers.__init__ import re
 
 
 class Meituri:
@@ -46,7 +46,7 @@ class Meituri:
 
     def url2albums(self, url):
         albums_url = []
-        if '/t/' in url:
+        if '/t/' in url or '/search/' in url:
             albums_url.extend(self.model2albums(url))
         elif '/a/' in url:
             albums_url.append(url)
