@@ -42,6 +42,20 @@ $ photo-dl urls.txt
 
 
 
+## Configuration
+
+modify photo_dl/config.py
+
+| configuration | default       |
+| :------------ | ------------- |
+| headers       | User-Agent... |
+| timeout       | 15 sec        |
+| max_retries   | 3             |
+| log_file      | ./log.txt     |
+| threads       | 4             |
+
+
+
 ## Supported sites
 
 Temporarily only supports two sites
