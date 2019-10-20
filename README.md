@@ -47,7 +47,7 @@ $ photo-dl urls.txt
 modify photo_dl/config.py
 
 | configuration | default       |
-| :------------ | ------------- |
+| :------------ | :------------ |
 | headers       | User-Agent... |
 | timeout       | 15 sec        |
 | max_retries   | 3             |
@@ -61,7 +61,7 @@ modify photo_dl/config.py
 Temporarily only supports two sites
 
 | site                     | feature             | example                                                      |
-| :----------------------- | ------------------- | :----------------------------------------------------------- |
+| :----------------------- | :------------------ | :----------------------------------------------------------- |
 | https://www.meituri.com/ | model               | https://www.meituri.com/t/1820/                              |
 |                          | album               | https://www.meituri.com/a/7893/                              |
 |                          | search              | https://www.meituri.com/search/有村架純                      |
