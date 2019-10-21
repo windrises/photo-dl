@@ -42,4 +42,4 @@ def download(albums):
     print('end\n')
     print('total success: %d, total error: %d, total skip: %d' % (tot_success, tot_num - tot_success, tot_skip))
     if tot_success < tot_num or error_flag:
-        print('\nIt looks like something went wrong. You can try again')
+        print('\nIt seems that something went wrong. You can try again')
