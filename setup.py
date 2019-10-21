@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="photo-dl",
-    version="0.0.9",
+    version="0.0.20",
     author="windrises",
     author_email="wind_rises@163.com",
     description="A photo album downloader",

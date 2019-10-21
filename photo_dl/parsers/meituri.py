@@ -1,5 +1,7 @@
+import re
+import sys
 from photo_dl.request import request
-from photo_dl.parsers.__init__ import re
+from photo_dl.request import MultiRequest
 
 
 class Meituri:
@@ -14,13 +16,18 @@ class Meituri:
         pages = model_html.xpath('//*[@id="pages"]/href')
         if pages:
             pages = list(set(pages))
+            urls = []
             for page in pages:
                 if '/s/' in page:
-                    html = request(self.domain + page)
-                    albums.extend(html.xpath('//*[@class="hezi"]//li/a/@href'))
+                    urls.append(self.domain + page)
+            urls = [{'url': url} for url in urls]
+            threads = MultiRequest(urls=urls, progress=False).run()
+            for thread in threads:
+                albums.extend(thread.response.xpath('//*[@class="hezi"]//li/a/@href'))
+                del thread
         return albums
 
-    def album2photos(self, album_url):
+    def album2photos(self, album_url, album_html):
         photos = []
         pos1 = album_url.find('/a/') + 3
         pos2 = album_url.find('/', pos1)
@@ -29,7 +36,6 @@ class Meituri:
             return
         self.album_flag[album_id] = 1
 
-        album_html = request(album_url)
         num = album_html.xpath('//*[contains(text(), "图片数量")]/text()')[0]
         num = num[num.find('： ') + 2: num.find('P')]
 
@@ -54,6 +60,16 @@ class Meituri:
             return [{'error': {'url': url, 'info': 'not supported'}}]
 
         albums = []
-        for album_url in albums_url:
-            albums.append(self.album2photos(album_url))
+        urls = [{'url': url} for url in albums_url]
+        threads = MultiRequest(urls=urls, name=url).run()
+        for thread in threads:
+            try:
+                album = self.album2photos(thread.url, thread.response)
+                if album is not None:
+                    albums.append(album)
+            except SystemExit:
+                sys.exit()
+            except:
+                albums.append({'error': {'url': thread.url, 'info': 'parse error'}})
+            del thread
         return albums
